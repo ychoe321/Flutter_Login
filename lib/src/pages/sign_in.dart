@@ -3,36 +3,42 @@ import 'package:flutter/material.dart';
 
 class Signin extends StatelessWidget {
   // const Signin({Key? key}) : super(key: key);
-  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _signUp() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: "barry.allen@example.com", password: "SuperSecretPassword!");
-      // _emailControllor =
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
-      } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // void _signUp() async {
+  //   try {
+  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //         email: "barry.allen@example.com", password: "SuperSecretPassword!");
+  //     // _emailControllor =
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'weak-password') {
+  //       print('The password provided is too weak.');
+  //     } else if (e.code == 'email-already-in-use') {
+  //       print('The account already exists for that email.');
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-  void _signIn() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: "barry.allen@example.com", password: "SuperSecretPassword!");
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
+  // void _signIn() async {
+  //   try {
+  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
+  //         email: "barry.allen@example.com", password: "SuperSecretPassword!");
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'user-not-found') {
+  //       print('No user found for that email.');
+  //     } else if (e.code == 'wrong-password') {
+  //       print('Wrong password provided for that user.');
+  //     }
+  //   }
+  // }
+
+  void _signIn() {
+    if (_formkey.currentState!.validate()) {
+      print(_emailController.text.toString());
     }
   }
 
@@ -52,7 +58,7 @@ class Signin extends StatelessWidget {
 
   Widget _inputForm() {
     return Form(
-      key: _globalKey,
+      key: _formkey,
       child: Column(
         children: <Widget>[
           TextFormField(
@@ -66,11 +72,12 @@ class Signin extends StatelessWidget {
             },
           ),
           TextFormField(
+            obscureText: true, //hide password
             controller: _passwordController,
             decoration: InputDecoration(labelText: 'Password'),
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please input corrent password.';
+                return 'Please input corrent email.';
               }
               return null;
             },
@@ -100,7 +107,6 @@ class Signin extends StatelessWidget {
         child: RaisedButton(
           onPressed: _signIn,
           child: Text('Login'),
-          // onPressed: _signUp,
         ),
       );
 }

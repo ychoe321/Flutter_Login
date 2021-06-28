@@ -39,64 +39,68 @@ class Signin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: Form(
-        key: _globalKey,
-        child: Column(
-          children: <Widget>[
-            TextFormField(
-              controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please input corrent email.';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please input corrent password.';
-                }
-                return null;
-              },
-            ),
-            Container(
-              height: 10,
-            ),
-            Text('Forgot Password'),
-            Container(
-              height: 10,
-            ),
-            Text('Sign Up'),
-            Container(
-              height: 20,
-            ),
-            ElevatedButton(
-              onPressed: _signIn,
-              // onPressed: _signUp,
-              child: Text('Sign in'),
-            ),
-          ],
+        appBar: AppBar(
+          title: Text('Login'),
         ),
+        body: Stack(
+          children: <Widget>[
+            _inputForm(),
+            _authButton(),
+          ],
+        ));
+  }
+
+  Widget _inputForm() {
+    return Form(
+      key: _globalKey,
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: _emailController,
+            decoration: InputDecoration(labelText: 'Email'),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please input corrent email.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _passwordController,
+            decoration: InputDecoration(labelText: 'Password'),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please input corrent password.';
+              }
+              return null;
+            },
+          ),
+          Container(
+            height: 10,
+          ),
+          Text('Forgot Password'),
+          Container(
+            height: 20,
+          ),
+          Text('Sign Up'),
+          Container(
+            height: 20,
+          ),
+        ],
       ),
     );
-
-    //       Expanded(
-    //         child: Center(
-    //           child: ElevatedButton(
-    //             onPressed: _signIn,
-    //             child: Text('Login'),
-    //           ),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
+
+  Widget _authButton() => Positioned(
+        left: 100,
+        right: 100,
+        bottom: 350,
+
+        // ignore: deprecated_member_use
+        child: RaisedButton(
+          onPressed: _signIn,
+          child: Text('Login'),
+          // onPressed: _signUp,
+        ),
+      );
 }

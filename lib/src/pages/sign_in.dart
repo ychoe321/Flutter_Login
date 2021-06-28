@@ -59,10 +59,11 @@ class Signin extends StatelessWidget {
       child: Column(
         children: <Widget>[
           TextFormField(
+            key: ValueKey('email'),
             controller: _emailController,
             decoration: InputDecoration(labelText: 'Email'),
             validator: (value) {
-              if (value!.isEmpty) {
+              if (value!.isEmpty || !value.contains('@')) {
                 return 'Please input corrent email.';
               }
               return null;

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login/src/pages/forget_pw.dart';
 
 class Signin extends StatelessWidget {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -46,13 +47,13 @@ class Signin extends StatelessWidget {
         ),
         body: Stack(
           children: <Widget>[
-            _inputForm(),
+            _inputForm(context),
             _authButton(),
           ],
         ));
   }
 
-  Widget _inputForm() {
+  Widget _inputForm(BuildContext context) {
     return Form(
       key: _formkey,
       child: Column(
@@ -79,9 +80,14 @@ class Signin extends StatelessWidget {
             },
           ),
           Container(
-            height: 10,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ForgetPw()));
+              },
+              child: Text('Forgot Password'),
+            ),
           ),
-          Text('Forgot Password'),
         ],
       ),
     );

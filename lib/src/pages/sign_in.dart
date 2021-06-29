@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/src/pages/forget_pw.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Signin extends StatelessWidget {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final GoogleSignIn googleSignin = GoogleSignIn();
 
   void _signUp() async {
     if (_formkey.currentState!.validate()) {
@@ -39,6 +41,17 @@ class Signin extends StatelessWidget {
     }
   }
 
+  Future<UserCredential> _signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await googleSignin.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +62,7 @@ class Signin extends StatelessWidget {
           children: <Widget>[
             _inputForm(context),
             _authButton(),
+            _snsButton(),
           ],
         ));
   }
@@ -110,6 +124,24 @@ class Signin extends StatelessWidget {
             ElevatedButton(
               onPressed: _signUp,
               child: Text('Sign Up'),
+            ),
+          ],
+        ),
+      );
+
+  Widget _snsButton() => Positioned(
+        left: 100,
+        right: 100,
+        bottom: 300,
+        child: Column(
+          children: <Widget>[
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: _signInWithGoogle,
+              child: Text('Sign In with Google'),
+            ),
+            Container(
+              width: 50,
             ),
           ],
         ),

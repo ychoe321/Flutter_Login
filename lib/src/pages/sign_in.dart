@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_login/src/pages/forget_pw.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -50,6 +51,17 @@ class Signin extends StatelessWidget {
       idToken: googleAuth.idToken,
     );
     return await FirebaseAuth.instance.signInWithCredential(credential);
+  }
+
+  Future<UserCredential> _signInWithFacebook() async {
+    // ignore: omit_local_variable_types
+    final AccessToken result =
+        (await FacebookAuth.instance.login() as AccessToken);
+    final facebookAuthCredential =
+        FacebookAuthProvider.credential(result.token);
+
+    return await FirebaseAuth.instance
+        .signInWithCredential(facebookAuthCredential);
   }
 
   @override
@@ -111,7 +123,7 @@ class Signin extends StatelessWidget {
   Widget _authButton() => Positioned(
         left: 100,
         right: 100,
-        bottom: 350,
+        bottom: 370,
         child: Row(
           children: <Widget>[
             ElevatedButton(
@@ -132,7 +144,7 @@ class Signin extends StatelessWidget {
   Widget _snsButton() => Positioned(
         left: 100,
         right: 100,
-        bottom: 300,
+        bottom: 200,
         child: Column(
           children: <Widget>[
             // ignore: deprecated_member_use
@@ -140,8 +152,10 @@ class Signin extends StatelessWidget {
               onPressed: _signInWithGoogle,
               child: Text('Sign In with Google'),
             ),
-            Container(
-              width: 50,
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: _signInWithFacebook,
+              child: Text('Sign In with Facebook'),
             ),
           ],
         ),

@@ -17,21 +17,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      // home: FutureBuilder(
-      //   future: _fbApp,
-      //   builder: (context, snapshot) {
-      //     if (snapshot.hasError) {
-      //       print('You have an error! ${snapshot.error.toString()}');
-      //       return Text('Something went wrong!');
-      //     } else if (snapshot.hasData) {
-      //       return MyHomePage(title: 'LOGIN');
-      //     } else {
-      //       return Center(
-      //         child: CircularProgressIndicator(),
-      //       );
-      //     }
-      //   },
-      // )
       home: App(),
     );
   }

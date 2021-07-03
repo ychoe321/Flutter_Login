@@ -54,15 +54,18 @@ class Signin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHight = MediaQuery.of(context).size.height;
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           title: Text('Login'),
         ),
         body: Stack(
           children: <Widget>[
             _inputForm(context),
-            _authButton(),
-            _snsButton(),
+            _authButton(deviceWidth, deviceHight),
+            _snsButton(deviceWidth, deviceHight),
           ],
         ));
   }
@@ -108,10 +111,10 @@ class Signin extends StatelessWidget {
     );
   }
 
-  Widget _authButton() => Positioned(
-        left: 100,
-        right: 100,
-        bottom: 350,
+  Widget _authButton(deviceWidth, deviceHight) => Positioned(
+        left: deviceWidth * 0.3,
+        right: deviceWidth * 0.2,
+        bottom: deviceHight * 0.5,
         child: Row(
           children: <Widget>[
             ElevatedButton(
@@ -119,7 +122,7 @@ class Signin extends StatelessWidget {
               child: Text('Login'),
             ),
             Container(
-              width: 50,
+              width: deviceWidth * 0.05,
             ),
             ElevatedButton(
               onPressed: _signUp,
@@ -129,10 +132,10 @@ class Signin extends StatelessWidget {
         ),
       );
 
-  Widget _snsButton() => Positioned(
-        left: 100,
-        right: 100,
-        bottom: 300,
+  Widget _snsButton(deviceWidth, deviceHight) => Positioned(
+        left: deviceWidth * 0.2,
+        right: deviceWidth * 0.2,
+        bottom: deviceHight * 0.45,
         child: Column(
           children: <Widget>[
             // ignore: deprecated_member_use
@@ -141,7 +144,7 @@ class Signin extends StatelessWidget {
               child: Text('Sign In with Google'),
             ),
             Container(
-              width: 50,
+              width: deviceWidth * 0.05,
             ),
           ],
         ),

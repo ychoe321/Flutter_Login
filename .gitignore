@@ -67,4 +67,5 @@ app.*.map.json
 *.lock
 *.yaml
 *.metadata
+*.json
 

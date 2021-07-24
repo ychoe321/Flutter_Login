@@ -16,7 +16,8 @@ class App extends StatelessWidget {
           // Check for errors
           if (snapshot.hasError) {
             return Center(
-              child: Text('Firebase was failed'),
+              // child: Text('Firebase was failed'),
+              child: Text(snapshot.toString()),
             );
           }
 

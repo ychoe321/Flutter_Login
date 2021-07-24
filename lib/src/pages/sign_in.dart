@@ -54,16 +54,16 @@ class Signin extends StatelessWidget {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-  Future<UserCredential> _signInWithFacebook() async {
-    // ignore: omit_local_variable_types
-    final AccessToken result =
-        (await FacebookAuth.instance.login() as AccessToken);
-    final facebookAuthCredential =
-        FacebookAuthProvider.credential(result.token);
+  // Future<UserCredential> _signInWithFacebook() async {
+  //   // ignore: omit_local_variable_types
+  //   final AccessToken result =
+  //       (await FacebookAuth.instance.login() as AccessToken);
+  //   final facebookAuthCredential =
+  //       FacebookAuthProvider.credential(result.token);
 
-    return await FirebaseAuth.instance
-        .signInWithCredential(facebookAuthCredential);
-  }
+  //   return await FirebaseAuth.instance
+  //       .signInWithCredential(facebookAuthCredential);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -157,10 +157,10 @@ class Signin extends StatelessWidget {
               child: Text('Sign In with Google'),
             ),
             // ignore: deprecated_member_use
-            FlatButton(
-              onPressed: _signInWithFacebook,
-              child: Text('Sign In with Facebook'),
-            ),
+            // FlatButton(
+            //   onPressed: _signInWithFacebook,
+            //   child: Text('Sign In with Facebook'),
+            // ),
             Container(
               width: deviceWidth * 0.05,
             ),

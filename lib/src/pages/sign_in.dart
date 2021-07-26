@@ -1,9 +1,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_login/src/pages/forget_pw.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+
 
 class Signin extends StatelessWidget {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
@@ -53,16 +54,16 @@ class Signin extends StatelessWidget {
     );
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
-
+      
   // Future<UserCredential> _signInWithFacebook() async {
-  //   // ignore: omit_local_variable_types
-  //   final AccessToken result =
-  //       (await FacebookAuth.instance.login() as AccessToken);
-  //   final facebookAuthCredential =
-  //       FacebookAuthProvider.credential(result.token);
+  //     final facebookLogin = FacebookLogin();
+  //     final result = await facebookLogin.logIn(['email']);
 
-  //   return await FirebaseAuth.instance
-  //       .signInWithCredential(facebookAuthCredential);
+  //     final facebookAuthCredential =
+  //         FacebookAuthProvider.credential(result.accessToken.token);
+
+  //     return await FirebaseAuth.instance
+  //         .signInWithCredential(facebookAuthCredential);
   // }
 
   @override
@@ -148,7 +149,7 @@ class Signin extends StatelessWidget {
   Widget _snsButton(deviceWidth, deviceHight) => Positioned(
         left: deviceWidth * 0.2,
         right: deviceWidth * 0.2,
-        bottom: deviceHight * 0.45,
+        bottom: deviceHight * 0.3,
         child: Column(
           children: <Widget>[
             // ignore: deprecated_member_use
@@ -161,7 +162,7 @@ class Signin extends StatelessWidget {
             //   onPressed: _signInWithFacebook,
             //   child: Text('Sign In with Facebook'),
             // ),
-            Container(
+             Container(
               width: deviceWidth * 0.05,
             ),
           ],

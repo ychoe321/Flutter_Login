@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_login/src/pages/forget_pw.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Signin extends StatelessWidget {
@@ -16,6 +17,7 @@ class Signin extends StatelessWidget {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
+            sendVerificationEamil();
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
@@ -64,6 +66,15 @@ class Signin extends StatelessWidget {
   //   return await FirebaseAuth.instance
   //       .signInWithCredential(facebookAuthCredential);
   // }
+
+  Future<void> sendVerificationEamil() async {
+    
+     await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+    Fluttertoast.showToast(msg: 'Please verify your email');
+
+  }
+
 
   @override
   Widget build(BuildContext context) {

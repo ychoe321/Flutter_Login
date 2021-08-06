@@ -13,7 +13,7 @@ class Signin extends StatelessWidget {
   final GoogleSignIn googleSignin = GoogleSignIn();
 
   void _signUp() async {
-    if (_formkey.currentState!.validate()) {
+    if (_formkey.currentState!.validate()) {  
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: _emailController.text, password: _passwordController.text);
@@ -68,13 +68,14 @@ class Signin extends StatelessWidget {
   // }
 
   Future<void> sendVerificationEamil() async {
+    if (FirebaseAuth.instance.currentUser!= null && FirebaseAuth.instance.currentUser!.emailVerified==false) {
     
-     await FirebaseAuth.instance.currentUser!.sendEmailVerification();
+    await FirebaseAuth.instance.currentUser!.sendEmailVerification();
 
     Fluttertoast.showToast(msg: 'Please verify your email');
+    }
 
   }
-
 
   @override
   Widget build(BuildContext context) {

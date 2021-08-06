@@ -17,7 +17,7 @@ class Mypage extends StatelessWidget {
                   child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Welcome.\n${FirebaseAuth.instance.currentUser!.email}'),
+              Text('Welcome.\n${FirebaseAuth.instance.currentUser!.email}\nEmail Verified:${FirebaseAuth.instance.currentUser!.emailVerified.toString()}'),
               ElevatedButton(
                   onPressed: FirebaseAuth.instance.signOut,
                   child: Text('Logout')),
